@@ -6,7 +6,7 @@ import { Nav_Buttons } from '../../data/index'
 import Logo from "../../assets/Images/logo.ico"
 import { Gear } from "phosphor-react";
 import { useState } from "react";
-import { faker, Faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import useSettings from '../../hooks/useSettings'
 
 
