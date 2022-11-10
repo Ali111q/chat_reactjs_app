@@ -19,7 +19,7 @@ const DashboardLayout = () => {
   const theme = useTheme();
   console.log(useTheme());
   return (
-    <>
+    <Stack direction="row" >
       <Box alignItems={"center"} sx={{
         p: 2,
         backgroundColor: useTheme().palette.background.paper,
@@ -99,7 +99,7 @@ const DashboardLayout = () => {
 
       </Box>
       <Outlet />
-    </>
+    </Stack>
   );
 };
 
