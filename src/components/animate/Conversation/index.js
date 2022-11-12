@@ -4,17 +4,12 @@ import { styled, useTheme } from "@mui/material/styles";
 import Footer from "./Footer";
 
 import Header from "./Header";
+import Message from "./message";
 
 
 
 
 
-const StyledInput = styled(TextField)(({ theme }) => ({
-    "& .MuiInputBase-input": {
-        paddingTop: "12px",
-        paddingBottom: "12px",
-    }
-}));
 
 
 const Conversation = () => {
@@ -27,7 +22,9 @@ const Conversation = () => {
             <Box
                 width={"100%"}
                 sx={{ flexGrow: 1 }}
-            ></Box>
+            >
+                <Message/>
+            </Box>
           <Footer/>
         </Stack>
     )

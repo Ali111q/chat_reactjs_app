@@ -4,7 +4,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Nav_Buttons } from '../../data/index'
 import { Gear } from "phosphor-react";
-import { faker } from "@faker-js/faker";
 import SideBar from "./SideBar";
 
 
