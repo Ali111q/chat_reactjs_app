@@ -17,7 +17,7 @@ const theme = useTheme()
       <Box sx={{
       height:"100%",
       width:"calc(100vw - 420px)",
-      backgroundColor:theme.palette.mode=="light"? "#fff":theme.palette.background.default
+      backgroundColor:theme.palette.mode=="light"? "#f0f4fa":theme.palette.background.default
     }}>
       <Conversation/>
       </Box>

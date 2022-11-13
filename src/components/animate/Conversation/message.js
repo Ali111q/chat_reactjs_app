@@ -1,11 +1,11 @@
 import React from 'react'
 import { Stack, Box } from '@mui/system';
 import { Chat_History } from '../../../data';
-import { MediaMsg, TextMsg, TimeLine } from './MsgType';
+import DocMsg, { LinkMsg, MediaMsg, ReplayMsg, TextMsg, TimeLine } from './MsgType';
 
 const Message = () => {
   return (
-    <Box p={3}>
+    <Box p={3} maxHeight="80vh" overflow="scroll" >
 <Stack spacing={3}>
 {Chat_History.map((el) => {
 switch (el.type) {
@@ -14,16 +14,14 @@ return <TimeLine el={el}/>
 case "msg":
 switch (el.subtype){
 case "img": return <MediaMsg el={el} />
-case "doc":
-break;
-case "link":
-break;
-case "replay":
-break;
+case "doc":return <DocMsg el={el} />
+
+case "link": return <LinkMsg el={el}/>
+case "reply": return <ReplayMsg el={el}/>
 
 default:return <TextMsg el={el} />
 // text msg
-break;
+
 }
 break;
 default:

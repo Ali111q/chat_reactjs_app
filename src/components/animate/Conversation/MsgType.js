@@ -1,58 +1,203 @@
-import { Divider, Typography,Stack,Box } from '@mui/material'
-import {useTheme} from '@mui/material'
+import { Divider, Typography, Stack, Box, useTheme, Link, IconButton } from '@mui/material'
+import { DownloadSimple, Image } from 'phosphor-react';
+
 import React from 'react'
 
 
-const MediaMsg =({el})=>{
+
+
+export default function DocMsg({ el }) {
     const theme = useTheme();
 
     return (
-    <Stack direction="row" justifyContent={el. incoming ? "start" : "end"}>
-</Stack>
+        <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
+            <Box
+                p={1.5}
+                sx={{
+                    backgroundColor: el.incoming
+                        ? theme.palette.mode == "light" ? "#fff" : theme.palette.background.paper
+                        : theme.palette.primary.main,
+                    borderRadius: 1.5, // 1.5 * 8 => 12 px
+                    width: "max-content",
+                    display: "gird",
+                    justifyContent: "center"
+
+                }}>
+                <Stack spacing={2} >
+                    <Stack p={2} spacing={3} direction={"row"} sx={{
+                        backgroundColor: theme.palette.background.paper,
+                        borderRadius: 1,
+                        alignItems: "center"
+                    }} >
+                        <Image size={48} />
+                        <Typography variant='caption' >
+                            abstarct.png
+                        </Typography>
+                        <IconButton>
+                            <DownloadSimple />
+                        </IconButton>
+                    </Stack>
+              
+                    <Typography sx={{
+                        width:"100%",
+                        display:"flex"
+                        ,justifyContent:"space-around"
+
+                    }} >
+                        {
+                            el.message
+                        }</Typography>
+                </Stack>
+            </Box></Stack>
     )
 }
 
 
-const TextMsg = ({ el }) =>{
+const LinkMsg = ({ el }) => {
     const theme = useTheme();
     return (
-    <Stack direction="row" justifyContent={el. incoming ? "start" : "end"}>
-    <Box
-    p={1.5}
-    sx={{
-    backgroundColor: el.incoming
-    ? theme.palette.mode=="light"? "#faf4ff": theme.palette.background.paper
-    : theme.palette.primary.main,
-    borderRadius: 1.5, // 1.5 * 8 => 12 px
-    width: "max-content", 
-    }}>
-    <Typography variant="body2" color={el. incoming ? theme.palette.text : "#fff"}>
-    {el.message}
-    </Typography>
-    </Box>
-    </Stack>
+        <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
+            <Box
+                p={1.5}
+                sx={{
+                    backgroundColor: el.incoming
+                        ? theme.palette.mode == "light" ? "#fff" : theme.palette.background.paper
+                        : theme.palette.primary.main,
+                    borderRadius: 1.5, // 1.5 * 8 => 12 px
+                    width: "max-content",
+                }}>
+                <Stack spacing={2} >
+                    <Stack spacing={3}
+
+                        p={2}
+                        alignItems="center"
+                        sx={{
+                            backgroundColor: theme.palette.primary.main,
+                            borderRadius: 1
+                        }} >
+                        <img src={el.preview} alt={el.message} style={{ maxHeight: 210, borderRadius: "10px" }} />
+
+
+                    </Stack>
+                    <Stack spacing={2} >
+                        <Typography variant='subtitle2' >create Chat App</Typography>
+                        <Typography variant='subtitle2' component={Link} to={"//www.youtube.com"} > www.youtube.com</Typography>
+                    </Stack>
+                    <Typography variant='subtitle2' >{el.message}</Typography>
+
+                </Stack></Box></Stack>
     )
-    };
+}
 
- const TimeLine = ({el}) => {
+
+const ReplayMsg = ({ el }) => {
+    const theme = useTheme();
+
+    return (
+        <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
+            <Box
+                p={1.5}
+                sx={{
+                    backgroundColor: el.incoming
+                        ? theme.palette.mode == "light" ? "#fff" : theme.palette.background.paper
+                        : theme.palette.primary.main,
+                    borderRadius: 1.5, // 1.5 * 8 => 12 px
+                    width: "max-content",
+                }}>
+                <Stack spacing={2} >
+                    <Stack spacing={3}
+                        direction="column"
+                        p={2}
+                        alignItems="center"
+                        sx={{
+                            backgroundColor: theme.palette.background.paper,
+                            borderRadius: 1
+                        }} >
+                        <Typography variant='body2' >
+                            {el.message}
+                        </Typography>
+
+
+                    </Stack>
+                    <Typography variant='body2' color={el.iconming ? theme.palette.text : "#fff"} >
+                        {el.reply}
+                    </Typography>
+                </Stack>
+            </Box></Stack>
+    )
+}
+
+
+
+const MediaMsg = ({ el }) => {
+    const theme = useTheme();
+
+    return (
+        <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
+            <Box
+                p={1.5}
+                sx={{
+                    backgroundColor: el.incoming
+                        ? theme.palette.mode == "light" ? "#fff" : theme.palette.background.paper
+                        : theme.palette.primary.main,
+                    borderRadius: 1.5, // 1.5 * 8 => 12 px
+                    width: "max-content",
+                }}>
+                <Stack spacing={1} >
+                    <img src={el.img} alt={el.message} style={{ maxHeight: 210, borderRadius: "10px" }} ></img>
+                    <Typography variant='body2'>
+                        {el.message}
+                    </Typography>
+                </Stack>
+            </Box>
+        </Stack>
+    )
+}
+
+
+const TextMsg = ({ el }) => {
+    const theme = useTheme();
+    return (
+        <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
+            <Box
+                p={1.5}
+                sx={{
+                    backgroundColor: el.incoming
+                        ? theme.palette.mode == "light" ? "#fff" : theme.palette.background.paper
+                        : theme.palette.primary.main,
+                    borderRadius: 1.5, // 1.5 * 8 => 12 px
+                    width: "max-content",
+                }}>
+                <Typography variant="body2" color={el.incoming ? theme.palette.text : "#fff"}>
+                    {el.message}
+                </Typography>
+            </Box>
+        </Stack>
+    )
+};
+
+const TimeLine = ({ el }) => {
     const theme = useTheme()
-  return (
-    <Stack direction={"row"} alignItems="center" justifyContent={"space-between"} >
-        <Divider width="46%" />
-        <Typography variant='caption' sx={{
-            color : theme.palette.text
-        }} >
-            {el.text}
-        </Typography>
-        <Divider width="46%" />
+    return (
+        <Stack direction={"row"} alignItems="center" justifyContent={"space-between"} >
+            <Divider width="46%" />
+            <Typography variant='caption' sx={{
+                color: theme.palette.text
+            }} >
+                {el.text}
+            </Typography>
+            <Divider width="46%" />
 
 
-    </Stack>
-  )
+        </Stack>
+    )
 }
 
 export {
     TimeLine,
     TextMsg,
-    MediaMsg
+    MediaMsg,
+    ReplayMsg,
+    LinkMsg,
+    DocMsg
 }

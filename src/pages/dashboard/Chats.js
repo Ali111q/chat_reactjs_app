@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Divider, IconButton, InputBase, Typography, Badge } from "@mui/material"
 import { borderRadius, margin, positions, Stack, width } from "@mui/system"
 import { ArchiveBox, CircleDashed, MagnifyingGlass } from "phosphor-react"
-import { styled, alpha , useTheme } from "@mui/material/styles"
+import { styled, alpha, useTheme } from "@mui/material/styles"
 import { ChatList } from "../../data"
 import { faker } from "@faker-js/faker";
 import { SimpleBarStyle } from "../../components/Scrollbar"
@@ -59,13 +59,13 @@ const ChatItem = ({ id,
     pinned,
     online, }) => {
 
-        const theme=useTheme()
+    const theme = useTheme()
     return (
         <Box
             sx={{
                 width: "100%",
                 borderRadius: 1,
-                backgroundColor:theme.palette.mode=="light"? "#fff":theme.palette.background.default
+                backgroundColor: theme.palette.mode == "light" ? "#fff" : theme.palette.background.default
 
             }}
             p={2}
@@ -125,12 +125,12 @@ const Chats = () => {
         <Box sx={{
             position: "relative",
             height: "100vh",
-            overflow:"scroll",
+
             width: 320,
-            backgroundColor:theme.palette.mode=="light"?  "#F8FAFF":theme.palette.background.paper,
+            backgroundColor: theme.palette.mode == "light" ? "#F8FAFF" : theme.palette.background.paper,
             boxShadow: "0px 0px 2px rgba(0,0,0,0.25)"
         }}>
-            <Stack p={3} spacing={2} sx={{height:'100hv'}}>
+            <Stack p={3} spacing={2} sx={{ height: '100hv' }}>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Typography variant="h5">
                         Chats
@@ -158,28 +158,39 @@ const Chats = () => {
                     </Stack>
                 </Button>
                 <Divider />
-               
-                <Stack direction="column" padding={1} sx={{flexGrow:1, overflow:'scroll' , height:'100%'}}>
-                 <SimpleBarStyle timeout={500} clickOnTrack={false} >
-                        <Stack spacing={2.4} sx={{flexGrow:1, overflow:'scroll'}} >
-                        <Typography variant="subtitle2" color="#676767">
-                            Pinned
-                        </Typography>
-                        {ChatList.filter((el) => el.pinned).map(e =>
-                             <ChatItem {...e} />
-                        )}
-                   
-                    
-                        <Typography variant="subtitle2" color="#676767">
-                            All Chat
-                        </Typography>
-                        {ChatList.filter((el) => !el.pinned).map(e =>
-                             <ChatItem {...e} />
-                        )}
-                    </Stack>
+                <Stack direction="column" padding={1} sx={{
+                    overflowY: "hidden",
+                    scrollbarColor: "red",
+                    height: '82vh',
+                    borderColor: "red",
+                    flexGrow: 1
+
+                }}>
+                    <SimpleBarStyle timeout={10} clickOnTrack={false} sx={{
+                        width: "100%",
+                        height: "100%",
+                        overflowY: "scroll",
+                        paddingRight: "17px",/* Increase/decrease this value for cross-browser compatibility */
+                        boxSizing: "content-box",
+                    }} >
+                        <Stack spacing={2.4}>
+                            <Typography variant="subtitle2" color="#676767"  >
+                                Pinned
+                            </Typography>
+                            {ChatList.filter((el) => el.pinned).map(e =>
+                                <ChatItem {...e} />
+                            )}
+
+
+                            <Typography variant="subtitle2" color="#676767">
+                                All Chat
+                            </Typography>
+                            {ChatList.filter((el) => !el.pinned).map(e =>
+                                <ChatItem {...e} />
+                            )}
+                        </Stack>
                     </SimpleBarStyle>
                 </Stack>
-                
             </Stack>
 
         </Box>
