@@ -1,16 +1,51 @@
-import { Divider, Typography, Stack, Box, useTheme, Link, IconButton } from '@mui/material'
+import { Divider, Typography, Stack, Box, useTheme, Link, IconButton, Menu, MenuItem } from '@mui/material'
 import { DownloadSimple, Image } from 'phosphor-react';
+import { Message_options } from '../../../data';
+import { useState } from 'react';
 
 import React from 'react'
 
+function MessageOptions(props) {
+    const open = Boolean(props.anchorEl);
+    const handleClick = (event) => {
+
+        props.setAnchorEl(event.currentTarget);
+        console.log(event.currentTarget);
+    };
+    const handleClose = () => {
+        props.setAnchorEl(null);
+    };
+    return (
+        <Menu
+            id="basic-menu"
+            anchorEl={props.anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+            }}
+        >
+            {Message_options.map(e => {
+                return <MenuItem onClick={handleClose}>{e.title}</MenuItem>
+            })}
+        </Menu>
+    )
+}
 
 
 
-export default function DocMsg({ el }) {
+
+function DocMsg({ el }) {
+    const [anchorEl, setAnchorEl] = useState(null);
+
     const theme = useTheme();
 
     return (
         <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
+            <div onContextMenu={(e) => {
+
+setAnchorEl(ee => e.target)
+}} >
             <Box
                 p={1.5}
                 sx={{
@@ -37,27 +72,34 @@ export default function DocMsg({ el }) {
                             <DownloadSimple />
                         </IconButton>
                     </Stack>
-              
+
                     <Typography sx={{
-                        width:"100%",
-                        display:"flex"
-                        ,justifyContent:"space-around"
+                        width: "100%",
+                        display: "flex"
+                        , justifyContent: "space-around"
 
                     }} >
                         {
                             el.message
                         }</Typography>
                 </Stack>
-            </Box></Stack>
+            </Box>
+            </div>
+            <MessageOptions anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+            </Stack>
     )
 }
 
 
 const LinkMsg = ({ el }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
     const theme = useTheme();
     return (
         <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
-            <Box
+               <div onContextMenu={(e) => {
+
+setAnchorEl(ee => e.target)
+}} > <Box
                 p={1.5}
                 sx={{
                     backgroundColor: el.incoming
@@ -85,16 +127,25 @@ const LinkMsg = ({ el }) => {
                     </Stack>
                     <Typography variant='subtitle2' >{el.message}</Typography>
 
-                </Stack></Box></Stack>
+                </Stack></Box>
+                </div>
+            <MessageOptions anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+        </Stack>
     )
 }
 
 
 const ReplayMsg = ({ el }) => {
     const theme = useTheme();
+    const [anchorEl, setAnchorEl] = useState(null);
+
 
     return (
         <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
+            <div onContextMenu={(e) => {
+
+setAnchorEl(ee => e.target)
+}} >
             <Box
                 p={1.5}
                 sx={{
@@ -123,7 +174,10 @@ const ReplayMsg = ({ el }) => {
                         {el.reply}
                     </Typography>
                 </Stack>
-            </Box></Stack>
+            </Box>
+            </div>
+            <MessageOptions anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
+        </Stack>
     )
 }
 
@@ -131,10 +185,15 @@ const ReplayMsg = ({ el }) => {
 
 const MediaMsg = ({ el }) => {
     const theme = useTheme();
+    const [anchorEl, setAnchorEl] = useState(null);
+
 
     return (
         <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
-            <Box
+              <div onContextMenu={(e) => {
+
+setAnchorEl(ee => e.target)
+}} >  <Box
                 p={1.5}
                 sx={{
                     backgroundColor: el.incoming
@@ -150,16 +209,23 @@ const MediaMsg = ({ el }) => {
                     </Typography>
                 </Stack>
             </Box>
+            </div>
+            <MessageOptions anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
         </Stack>
     )
 }
 
 
 const TextMsg = ({ el }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+
     const theme = useTheme();
     return (
         <Stack direction="row" justifyContent={el.incoming ? "start" : "end"}>
-            <Box
+            <div onContextMenu={(e) => {
+
+                setAnchorEl(ee => e.target)
+            }} > <Box
                 p={1.5}
                 sx={{
                     backgroundColor: el.incoming
@@ -168,10 +234,12 @@ const TextMsg = ({ el }) => {
                     borderRadius: 1.5, // 1.5 * 8 => 12 px
                     width: "max-content",
                 }}>
-                <Typography variant="body2" color={el.incoming ? theme.palette.text : "#fff"}>
-                    {el.message}
-                </Typography>
-            </Box>
+                    <Typography variant="body2" color={el.incoming ? theme.palette.text : "#fff"}>
+                        {el.message}
+                    </Typography>
+                </Box>
+            </div>
+            <MessageOptions anchorEl={anchorEl} setAnchorEl={setAnchorEl} />
         </Stack>
     )
 };
@@ -199,5 +267,6 @@ export {
     MediaMsg,
     ReplayMsg,
     LinkMsg,
-    DocMsg
+    DocMsg,
+    MessageOptions
 }

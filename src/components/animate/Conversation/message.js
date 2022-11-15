@@ -1,9 +1,17 @@
 import React from 'react'
 import { Stack, Box } from '@mui/system';
 import { Chat_History } from '../../../data';
-import DocMsg, { LinkMsg, MediaMsg, ReplayMsg, TextMsg, TimeLine } from './MsgType';
+import  { LinkMsg, MediaMsg, ReplayMsg, TextMsg, DocMsg, TimeLine } from './MsgType';
+
+
+
+
+
 
 const Message = () => {
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+  });
   return (
     <Box p={3} maxHeight="80vh" overflow="scroll" >
 <Stack spacing={3}>

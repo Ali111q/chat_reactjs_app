@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack, Divider, Avatar, Switch } from "@mui/material";
+import { Box, IconButton, Stack, Divider, Avatar, Switch, Menu, MenuItem } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { Nav_Buttons } from '../../data/index'
 import React from 'react'
@@ -7,14 +7,25 @@ import { useState } from "react";
 import { Gear, Sidebar } from "phosphor-react";
 import Logo from "../../assets/Images/logo.ico"
 import { faker } from "@faker-js/faker";
+import { Profile_Menu } from "../../data/index";
 
 
 
 
 export const SideBar = () => {
     const theme = useTheme()
+    const [anchorEl, setAnchorEl] = useState(null);
     const [selected, setSelected] = useState(0)
     const {onToggleMode}= useSettings()
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+
+        setAnchorEl(event.currentTarget);
+        console.log(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
 
   return (
@@ -91,7 +102,36 @@ export const SideBar = () => {
           </Stack>
           <Stack alignItems="center">
             <Switch defaultChecked onChange={()=>{onToggleMode()}} />
-          <Avatar srcSet={faker.image.avatar()} />
+            <div onContextMenu={(e) => {
+
+setAnchorEl(ee => e.target)
+}} >
+          <Avatar id="basic-button" srcSet={faker.image.avatar()} />
+          </div>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+            }}
+        >
+          
+            {Profile_Menu.map(e => {
+                return <MenuItem onClick={handleClose}>
+                  <Stack sx={{
+                    width:100,
+                    
+
+                  }} direction="row" alignItems={"center"} justifyContent="space-between" >
+                  {e.icon}  <span> {e.title} </span>
+                    
+                  </Stack>
+
+                </MenuItem>
+            })}
+        </Menu>
         </Stack>
         </Stack>
 
