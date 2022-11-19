@@ -34,7 +34,8 @@ default:return <TextMsg el={el} />
 break;
 default:
 }})
-}</Stack>
+}
+</Stack>
 </Box>
   )}
 export default Message

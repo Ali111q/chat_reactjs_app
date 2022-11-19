@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { Nav_Buttons } from '../../data/index'
 import { Gear } from "phosphor-react";
 import SideBar from "./SideBar";
+import { user } from "../../data/firebase";
 
 
 
@@ -15,7 +16,7 @@ const DashboardLayout = () => {
   console.log(useTheme());
   return (
     <Stack direction="row" >
-      <SideBar/>
+      {user && <SideBar />}
       <Outlet />
     </Stack>
   );

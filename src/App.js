@@ -5,7 +5,11 @@ import ThemeProvider from './theme';
 // components
 import ThemeSettings from './components/settings';
 
+
 function App() {
+
+
+
   return (
     <ThemeProvider>
       <ThemeSettings>
