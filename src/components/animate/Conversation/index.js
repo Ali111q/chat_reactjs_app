@@ -16,7 +16,7 @@ const Conversation = () => {
     const theme = useTheme()
     return (
         <Stack
-            sx={{ height: "100%", maxHeight: "100vh", width: "auto", }}>
+            sx={{ height: "100%", maxHeight: "100vh", width: "auto", position:"relative" }}>
 
          <Header/>
             <Box

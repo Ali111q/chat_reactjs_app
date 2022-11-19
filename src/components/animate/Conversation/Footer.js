@@ -52,7 +52,7 @@ const ChatInput = (props) => {
 
 
     return (
-        <StyledInput fullWidth placeholder="Write a message..." variant="filled" InputProps={{
+        <StyledInput  fullWidth placeholder="Write a message..." variant="filled" InputProps={{
             disableUnderline: true,
             startAdornment:
             <Stack maxWidth={"max-content"}>
@@ -100,7 +100,7 @@ const Footer = () => {
 
     const theme = useTheme()
     return (
-        <Box sx={{ height: 110, width: "100%", backgroundColor: theme.palette.mode == "light" ? "#f8faff" : theme.palette.background.paper, boxShadow: "0px 0px 2px rgba(0,0,0,0.25)" }}>
+        <Box sx={{ position:"absolute",bottom:"0", height: 110, width: "100%", backgroundColor: theme.palette.mode == "light" ? "#f8faff" : theme.palette.background.paper, boxShadow: "0px 0px 2px rgba(0,0,0,0.25)" }}>
 
             <Stack p={2} direction="row" alignItems="center" spacing={3} >
 

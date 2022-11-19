@@ -7,7 +7,6 @@ const initialState = {
     sideBar: {
         open:false,
         type:"CONTACT",
-
     }
 }
 
@@ -37,6 +36,8 @@ export function ToggleSideBar(){
 
 export function UpdateSideBar(){
     return async ()=>{
-        dispatch(slice.actions.updateSideBar())
+        dispatch(slice.actions.updateSideBar(
+           
+        ))
     }
 }
