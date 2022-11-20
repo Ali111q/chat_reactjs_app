@@ -11,7 +11,9 @@ import { user } from "../../data/firebase";
 
 
 
+
 const DashboardLayout = () => {
+  console.log(user);
   const theme = useTheme();
   console.log(useTheme());
   return (

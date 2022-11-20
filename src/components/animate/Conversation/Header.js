@@ -4,6 +4,7 @@ import { Box, Stack, Avatar,  Typography, IconButton, Divider, useTheme, } from 
 import StyledBadge from "../../settings/StyledBadge";
 import { ToggleSideBar } from "../../../redux/slices/app";
 import { useDispatch } from "react-redux";
+import { logOut } from "../../../data/firebase";
 
 
 
@@ -40,7 +41,9 @@ const Header = () => {
                     </Stack>
                 </Stack>
                 <Stack direction={"row"} alignItems="center" spacing={3}>
-                    <IconButton>
+                    <IconButton onClick={()=>{
+                        logOut()
+                    }} >
                         <VideoCamera />
                     </IconButton>
                     <IconButton>

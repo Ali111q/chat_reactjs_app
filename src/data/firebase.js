@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore, addDoc, collection, getDocs } from "firebase/firestore";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+// import { initializeApp } from "firebase/app";
+
+import firebase from "firebase";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,76 +17,111 @@ const firebaseConfig = {
 };
 var db;
 var auth;
-var user;
+var final;
+var user
 // Initialize Firebase
 const initializeAppp = () => {
     return new Promise((res, rej) => {
-        const app = initializeApp(firebaseConfig); // firebase initialize
-        db = getFirestore(app); // firestor initialize
-        auth = getAuth(app); // auth initialize
+        const app = firebase.initializeApp(firebaseConfig); // firebase initialize
+        // db = getFirestore(app); // firestor initialize
+        // auth = getAuth(app); // auth initialize
+        auth = firebase.auth()
         auth.languageCode = 'ar'; // auth code language
+        user = firebase.auth().currentUser
         return res(true)
     })
 
 }
 
 
-async function registerUser() {
-    try {
-        const docRef = await addDoc(collection(db, "users"), {
-            first: "Alan",
-            last: "Turing",
-            Phone: "+9647737503949",
-            id: "",
-            born: 1912,
-            isOnline: true,
-            lastOnline: Date.now(),
-            blockList: [],
-            chats: [],
-        });
+const userInfo ={
+    first: "Alan",
+    last: "Turing",
+    Phone: "+9647737503949",
+    id: "",
+    born: 1912,
+    isOnline: true,
+    lastOnline: Date.now(),
+    blockList: [],
+    chats: [],
+}
 
-        console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-        console.error("Error adding document: ", e);
-    }
+
+async function registerUser(props) {
+    // try {
+    //     const docRef = await addDoc(collection(db, "users"), props);
+
+    //     console.log("Document written with ID: ", docRef.id);
+    // } catch (e) {
+    //     console.error("Error adding document: ", e);
+    // }
 
 }
 
 // firebase captcha render
-async function useCaptcha(phone) {
-    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-        'size': 'normal',
-        'callback': (response) => {
-           signIn(phone)
-        },
-        'expired-callback': () => {
-            // Response expired. Ask user to solve reCAPTCHA again.
-            // ...
-        },
-    }, auth);
-}
+// async function captcha(phone) {
+//     console.log('dd');
+//     window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+//         'size': "normal",
+//         'callback': (response) => {
+//            signIn(phone)
+//            console.log(response);
+//         },
+//         'expired-callback': () => {
+//             // Response expired. Ask user to solve reCAPTCHA again.
+//             console.log('expired');
+//         },
+//     }, auth);
+// }
 
 // sign in with mobile
-async function signIn( phone ) {
-    const phoneNumber = phone;
-    const appVerifier = window.recaptchaVerifier;
-    signInWithPhoneNumber(auth, phoneNumber, appVerifier).then(e=>{
-        // message sent what is next??
-        window.confirmationResult = e;
-    }).catch((error) => {
-       console.error(error)
-      });
+const signIn = (mynumber) => {
+    return new Promise((res, rej)=>{
+  
+    if (mynumber === "" ) return;
+
+    let verify = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    auth.signInWithPhoneNumber(mynumber, verify).then((result) => {
+        console.log(result);
+        final = result;
+        alert("code sent")
+
+        return res(true)
+    })
+        .catch((err) => {
+           return res(false)
+            
+        });})
 }
 // confirm verification code 
-async function verifyCode(code){
-    window.confirmationResult.confirm(code).then((result) => {
-        // User signed in successfully.
-         user = result.user;
-        // ...
-      }).catch((error) => {
-        // User couldn't sign in (bad verification code?)
-        console.error(error);
-      });
+async function verifyCode(otp){
+    if (otp === null || final === null)
+            return;
+        final.confirm(otp).then((result) => {
+            
+        
+        }).catch((err) => {
+            alert("Wrong code");
+        })
 }
 
-export { initializeAppp, registerUser, user }
+function authState(){
+    auth.onAuthStateChanged(userr => {
+  
+        // currentUser is ready now.
+        if (userr) {
+            console.log('loged in');
+
+        } else {
+            console.log("loged out");
+            
+        }
+      });
+}
+function logOut(){
+    firebase.auth().signOut().then(()=>{
+        console.log('ghjk');
+    })
+}
+
+export { initializeAppp, registerUser, signIn, verifyCode, auth, user, logOut }
