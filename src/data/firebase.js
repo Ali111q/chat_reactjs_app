@@ -124,4 +124,4 @@ function logOut(){
     })
 }
 
-export { initializeAppp, registerUser, signIn, verifyCode, auth, user, logOut }
+export { initializeAppp, registerUser, signIn, verifyCode, auth, user, logOut, firebase }

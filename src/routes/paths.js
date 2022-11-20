@@ -1,13 +1,28 @@
+import { auth, firebase } from "../data/firebase";
 
 
-import { user, initializeAppp} from "../data/firebase";
 
 // ----------------------------------------------------------------------
 function path(root, sublink) {
   return `${root}${sublink}`;
 }
+let user;
+let index = 0;
+//  if (index === 0 ) {
+// firebase.auth.onAuthStateChanged(userr => {
+//  index = 1;
+//      if (userr) {
+//       user = true;
 
-  initializeAppp()
+//   } else {
+//       console.log("loged out");
+//       user=false;
+//   }
+//   }
+//   // currentUser is ready now.
+ 
+// );}
+
 
 
 const ROOTS_DASHBOARD = "/";
@@ -15,6 +30,8 @@ const ROOTS_DASHBOARD = "/";
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
   general: {
-    app: user? path(ROOTS_DASHBOARD, "app"):path(ROOTS_DASHBOARD, "login"),
+    app: path(ROOTS_DASHBOARD, user? "app":"login"),
   },
 };
+
+
